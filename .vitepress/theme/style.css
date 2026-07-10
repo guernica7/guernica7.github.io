@@ -1,8 +1,36 @@
 /* ---------------------------------------------------------------
-   devlog — minimal dark theme
+   guernica_dev — minimal theme (dark by default, light via toggle)
    Palette: near-black canvas + amber phosphor accent (terminal echo)
 --------------------------------------------------------------- */
 :root {
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo,
+    Consolas, monospace;
+
+  --font-display: 'Space Grotesk', var(--vp-font-family-base);
+
+  /* light — warm paper canvas + darkened amber (밝은 배경 대비 확보용) */
+  --vp-c-bg: #fbfaf7;
+  --vp-c-bg-alt: #f5f3ee;
+  --vp-c-bg-soft: #f0eee7;
+  --vp-c-bg-elv: #ffffff;
+
+  --vp-c-text-1: #232529;
+  --vp-c-text-2: #5c6370;
+  --vp-c-text-3: #8b919c;
+
+  --vp-c-divider: #e5e2d9;
+  --vp-c-border: #e5e2d9;
+  --vp-c-gutter: #eceade;
+
+  --vp-c-brand-1: #a8720f;
+  --vp-c-brand-2: #96650d;
+  --vp-c-brand-3: #85590b;
+  --vp-c-brand-soft: rgba(168, 114, 15, 0.14);
+}
+
+.dark {
   --vp-c-bg: #0c0d10;
   --vp-c-bg-alt: #0f1116;
   --vp-c-bg-soft: #14161b;
@@ -21,13 +49,6 @@
   --vp-c-brand-2: #d8a637;
   --vp-c-brand-3: #c4922b;
   --vp-c-brand-soft: rgba(227, 179, 65, 0.14);
-
-  --vp-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
-  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo,
-    Consolas, monospace;
-
-  --font-display: 'Space Grotesk', var(--vp-font-family-base);
 }
 
 h1,
@@ -151,6 +172,9 @@ h3,
 
 /* Slightly tighter, quieter prose to match the minimal feel */
 .vp-doc {
+  --vp-code-block-bg: #f0eee7;
+}
+.dark .vp-doc {
   --vp-code-block-bg: #14161b;
 }
 

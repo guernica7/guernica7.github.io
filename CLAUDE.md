@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 프로젝트 개요
 
-VitePress로 만든 미니멀 다크 개발 블로그(한국어). `main`에 push하면 GitHub Actions(`.github/workflows/deploy.yml`)가 빌드해 GitHub Pages(user site, `<username>.github.io`)로 배포한다. 유일한 의존성은 `vitepress`이며 테스트/린트 설정은 없다.
+VitePress로 만든 미니멀 개발 블로그(한국어, 다크 기본 + 라이트 토글). `main`에 push하면 GitHub Actions(`.github/workflows/deploy.yml`)가 빌드해 GitHub Pages(user site, `<username>.github.io`)로 배포한다. 유일한 의존성은 `vitepress`이며 테스트/린트 설정은 없다.
 
 ## 명령어
 
@@ -32,7 +32,7 @@ npm run preview  # 빌드 결과 미리보기
 
 ## 주의사항
 
-- **다크 전용**: `config.mts`의 `appearance: 'force-dark'`. 스타일 변경 시 라이트 모드는 고려 대상이 아니다.
+- **다크 기본 + 라이트 토글**: `config.mts`의 `appearance: 'dark'`. `style.css`에서 라이트 팔레트는 `:root`, 다크 팔레트는 `.dark` 스코프에 정의되어 있으므로 색상 변경 시 두 모드를 모두 반영한다.
 - **base 경로**: user site(`<username>.github.io`) 배포라 `base`는 `/` 그대로 둔다. project site로 바꾸는 경우에만 `base: '/저장소이름/'` 추가.
 - `cleanUrls: true`이므로 내부 링크에 `.html` 확장자를 붙이지 않는다.
 - `lastUpdated`는 git 커밋 타임스탬프 기반이며, 이를 위해 CI에서 `fetch-depth: 0`으로 checkout한다.

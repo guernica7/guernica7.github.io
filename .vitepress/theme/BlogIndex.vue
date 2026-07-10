@@ -13,7 +13,7 @@ function formatDate(raw: string): string {
 <template>
   <div class="blog">
     <header class="blog-head">
-      <h1 class="blog-title">글<span class="cursor">_</span></h1>
+      <h1 class="blog-title">guernica_dev<span class="cursor">_</span></h1>
       <p class="blog-sub">기록하고, 배우고, 공유합니다.</p>
     </header>
 

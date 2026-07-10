@@ -5,11 +5,11 @@ import { defineConfig } from 'vitepress'
 // 아래 defineConfig 안에 base: '/저장소이름/' 을 추가하세요.
 export default defineConfig({
   lang: 'ko-KR',
-  title: 'devlog',
+  title: 'guernica_dev',
   description: '기록하고, 배우고, 공유합니다.',
 
-  // cmux 처럼 다크 전용. 토글을 숨기려면 'force-dark'.
-  appearance: 'force-dark',
+  // 기본은 다크, 우측 상단 토글로 라이트 모드 전환 가능.
+  appearance: 'dark',
 
   cleanUrls: true,
   lastUpdated: true,
@@ -34,7 +34,6 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://github.com/guernica7' }],
 
     footer: {
-      message: 'Built with VitePress',
       copyright: '© 2026 guernica7. All rights reserved.'
     },
 
