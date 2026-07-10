@@ -1,0 +1,14 @@
+{
+  "name": "devlog",
+  "version": "0.1.0",
+  "description": "A minimal dark developer blog built with VitePress",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  }
+}
