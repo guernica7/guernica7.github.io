@@ -16,6 +16,9 @@ export default defineConfig({
   srcExclude: ['README.md'],
 
   head: [
+    // Google Search Console 소유권 확인
+    ['meta', { name: 'google-site-verification', content: '28XTAME9qYHez54_pZrycAjaQofaiTHP0pUBVPzBouM' }],
+
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
     [
