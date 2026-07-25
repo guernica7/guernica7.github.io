@@ -13,7 +13,9 @@ export default defineConfig({
 
   cleanUrls: true,
   lastUpdated: true,
-  srcExclude: ['README.md'],
+  srcExclude: ['README.md', 'CLAUDE.md'],
+
+  sitemap: { hostname: 'https://guernica7.github.io' },
 
   head: [
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
