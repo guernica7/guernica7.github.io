@@ -56,18 +56,44 @@ Function은 입력 파라미터를 받아 출력을 반환하는 코드 기반 �
 
 전체 흐름은 대략 이렇다.
 
-```
-외부 시스템 (SAP, DB, S3, Kafka, API...)
-   ↓ Data Connection (sync)
-Foundry Dataset (파일 컬렉션 + 트랜잭션 로그)
-   ↓ Pipeline Builder / Code Repositories (transforms)
-정제된 Dataset
-   ↓ Ontology Manager (backing datasource 매핑)
-   ↓ Funnel (인덱싱 파이프라인)
-Object Storage v2 (온톨로지 객체 스토어)
-   ↓ OSDK / API / Workshop / AIP
-애플리케이션 & 에이전트
-```
+<svg viewBox="0 0 680 472" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="팔란티어 데이터 파이프라인: 외부 시스템에서 Foundry Dataset, 정제된 Dataset, Object Storage v2를 거쳐 애플리케이션과 에이전트까지" style="max-width: 680px; width: 100%; height: auto; font-family: var(--vp-font-family-mono, monospace);">
+  <defs>
+    <marker id="pl-arrow" markerWidth="8" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L8,4.5 L0,9 Z" fill="var(--vp-c-brand-1, #a8720f)" />
+    </marker>
+  </defs>
+
+  <g fill="none" stroke="var(--vp-c-divider, #d0d7de)">
+    <rect x="20" y="2" width="640" height="46" rx="8" fill="var(--vp-c-bg-soft, #f6f8fa)" />
+    <rect x="20" y="102" width="640" height="46" rx="8" fill="var(--vp-c-bg-soft, #f6f8fa)" />
+    <rect x="20" y="202" width="640" height="46" rx="8" fill="var(--vp-c-bg-soft, #f6f8fa)" />
+    <rect x="20" y="322" width="640" height="46" rx="8" fill="var(--vp-c-brand-soft, rgba(168, 114, 15, 0.14))" stroke="var(--vp-c-brand-1, #a8720f)" />
+    <rect x="20" y="422" width="640" height="46" rx="8" fill="var(--vp-c-bg-soft, #f6f8fa)" />
+  </g>
+
+  <g stroke="var(--vp-c-brand-1, #a8720f)" stroke-width="1.5" marker-end="url(#pl-arrow)">
+    <line x1="60" y1="54" x2="60" y2="88" />
+    <line x1="60" y1="154" x2="60" y2="188" />
+    <line x1="60" y1="254" x2="60" y2="308" />
+    <line x1="60" y1="374" x2="60" y2="408" />
+  </g>
+
+  <g font-size="15" fill="var(--vp-c-text-1, #2c313a)" dominant-baseline="middle">
+    <text x="44" y="26">외부 시스템 (SAP, DB, S3, Kafka, API…)</text>
+    <text x="44" y="126">Foundry Dataset (파일 컬렉션 + 트랜잭션 로그)</text>
+    <text x="44" y="226">정제된 Dataset</text>
+    <text x="44" y="346" fill="var(--vp-c-brand-1, #a8720f)">Object Storage v2 (온톨로지 객체 스토어)</text>
+    <text x="44" y="446">애플리케이션 &amp; 에이전트</text>
+  </g>
+
+  <g font-size="13" fill="var(--vp-c-text-2, #6a737d)" dominant-baseline="middle">
+    <text x="84" y="72">Data Connection (sync)</text>
+    <text x="84" y="172">Pipeline Builder / Code Repositories (transforms)</text>
+    <text x="84" y="272">Ontology Manager (backing datasource 매핑)</text>
+    <text x="84" y="294">Funnel (인덱싱 파이프라인)</text>
+    <text x="84" y="392">OSDK / API / Workshop / AIP</text>
+  </g>
+</svg>
 
 **Dataset 계층.** 데이터는 Foundry에 도착한 시점부터 온톨로지 객체 모델에 매핑될 때까지 Foundry 데이터셋으로 표현된다. 근본적으로 Foundry 데이터셋은 backing 파일 시스템에 저장된 파일 컬렉션의 wrapper이며, Git처럼 브랜치와 트랜잭션(APPEND/SNAPSHOT) 개념이 있어 데이터에 버전 관리를 적용한다.
 
