@@ -37,6 +37,7 @@ npm run preview  # 빌드 결과 미리보기
 - `cleanUrls: true`이므로 내부 링크에 `.html` 확장자를 붙이지 않는다.
 - `lastUpdated`는 git 커밋 타임스탬프 기반이며, 이를 위해 CI에서 `fetch-depth: 0`으로 checkout한다.
 - `README.md`는 `srcExclude`로 사이트 빌드에서 제외되어 있다.
+- **한글 굵게 렌더링**: CommonMark 규칙상 닫는 `**`가 따옴표·괄호 뒤 + 한글 조사 앞에 오면(예: `...layer)"**에`) 강조가 깨진다. `config.mts`의 `markdown-it-cjk-friendly` 플러그인이 이를 해결하므로 제거하지 않는다.
 
 ## 새 글 작성
 
