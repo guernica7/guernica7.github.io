@@ -1,6 +1,7 @@
 import { defineConfig, createContentLoader, type SiteConfig } from 'vitepress'
 import { writeFileSync } from 'node:fs'
 import path from 'node:path'
+import markdownItCjkFriendly from 'markdown-it-cjk-friendly'
 
 const hostname = 'https://guernica7.github.io'
 
@@ -28,6 +29,14 @@ export default defineConfig({
   srcExclude: ['README.md', 'CLAUDE.md'],
 
   sitemap: { hostname },
+
+  // CommonMark 규칙상 닫는 **가 문장부호(따옴표·괄호) 뒤 + 한글 조사 앞에 오면
+  // 강조로 인식되지 않는 문제(예: `...layer)"**에`)를 CJK 친화 규칙으로 해결한다.
+  markdown: {
+    config(md) {
+      md.use(markdownItCjkFriendly)
+    }
+  },
 
   // 빌드 완료 후 posts/*.md의 frontmatter로 RSS 피드(feed.xml)를 생성한다.
   buildEnd: async (config: SiteConfig) => {
