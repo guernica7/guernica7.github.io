@@ -84,7 +84,38 @@ ${items}
     writeFileSync(path.join(config.outDir, 'feed.xml'), feed)
   },
 
+  // 페이지별 OG 태그 (title/description/url은 각 글의 frontmatter를 따른다)
+  transformHead({ pageData, siteConfig }) {
+    const site = siteConfig.site
+    const isHome = pageData.relativePath === 'index.md'
+    const title =
+      !isHome && pageData.title ? `${pageData.title} | ${site.title}` : site.title
+    const description = pageData.frontmatter.description || site.description
+    const url =
+      hostname +
+      '/' +
+      pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+
+    return [
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { property: 'og:url', content: url }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description }]
+    ]
+  },
+
   head: [
+    // Open Graph (사이트 공통)
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'guernica_dev' }],
+    ['meta', { property: 'og:locale', content: 'ko_KR' }],
+    ['meta', { property: 'og:image', content: `${hostname}/og.png` }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:image', content: `${hostname}/og.png` }],
+
     // 파비콘
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' }],
