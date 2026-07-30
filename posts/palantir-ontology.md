@@ -15,8 +15,6 @@ Ontology는 Foundry 플랫폼에 통합된 디지털 자산(데이터셋, 가상
 
 통상적인 데이터 카탈로그나 시맨틱 레이어(dbt semantic layer, LookML 등)는 **읽기 전용**이다. 팔란티어 온톨로지의 결정적 차이는 **쓰기(write-back)가 일급 시민**이라는 점이고, 이것이 아래에서 다룰 Action Type의 존재 이유다.
 
----
-
 ## 1. 메타데이터 모델 — 온톨로지를 구성하는 타입들
 
 ### Object Type / Property
@@ -54,8 +52,6 @@ Function은 입력 파라미터를 받아 출력을 반환하는 코드 기반 �
 - **Type Class**: 프로퍼티/링크/액션에 붙이는 태그 메타데이터로, 해당 값과 상호작용할 때 애플리케이션이 어떻게 렌더링/동작해야 하는지를 기술한다.
 - **Roles**: 온톨로지의 중심 권한 모델로, 온톨로지 레벨 또는 개별 리소스 레벨에서 부여한다.
 
----
-
 ## 2. 데이터 파이프라인 — Raw 데이터에서 온톨로지까지
 
 전체 흐름은 대략 이렇다.
@@ -78,8 +74,6 @@ Object Storage v2 (온톨로지 객체 스토어)
 **변환 계층.** Pipeline Builder가 주력 데이터 통합 도구로, Spark와 Flink를 실행 엔진으로 활용하면서 코드를 쓰는 사용자와 안 쓰는 사용자가 같은 파이프라인에서 협업할 수 있게 한다. 아키텍처적으로 눈여겨볼 점은 데이터 변환을 기술하는 **일반 모델(중간 표현)**을 두어 변환 작성 도구와 실행을 분리했다는 것이다. 덕분에 데이터셋·온톨로지 객체·스트림·시계열·외부 export 등 모든 종류의 출력을 같은 파이프라인 정의에서 지원한다. 코드가 필요하면 Code Repositories에서 Python/SQL/Java transforms를 직접 작성한다.
 
 **운영 품질.** 파이프라인에는 소유권 개념(정기적·안정적으로 데이터가 흐르도록 감독하는 사람/그룹)이 있고, 스케줄·health check·data expectations 같은 장치로 프로덕션 등급을 유지한다.
-
----
 
 ## 3. 인프라 — Object Storage v2와 Funnel
 
@@ -110,8 +104,6 @@ OSv2는 단일 object type 기준 수백억(tens of billions) 객체 규모의 �
 
 정리하면: **소스 데이터는 lake(파일 + 트랜잭션 로그)에 있고, Funnel이 diff를 계산해 검색/그래프 순회에 최적화된 인덱스로 변환하며, 사용자 edit(Action)은 별도 스토어에 쌓였다가 merge 단계에서 합쳐진다.** 사용자 edit과 파이프라인 데이터가 분리 관리되므로 상류 데이터가 재빌드되어도 사용자가 앱에서 입력한 값이 사라지지 않는다.
 
----
-
 ## 4. 보안 모델 — 온톨로지에 내장된 권한
 
 정부/방산에서 출발한 회사답게, 보안이 데이터 모델에 융합되어 있다.
@@ -120,8 +112,6 @@ OSv2는 단일 object type 기준 수백억(tens of billions) 객체 규모의 �
 - **Row-level**: Restricted view는 backing dataset 위에 만들어져 사용자가 볼 수 있는 row만 제한하며, 이를 object type의 backing datasource로 쓰면 사용자가 볼 수 있는 객체가 제어된다. Granular policy는 사용자 속성·컬럼·값을 비교하는 룰과 논리 연산자의 집합이다.
 - **최신 방향**: Object security policy는 backing datasource 권한과 **독립적으로** object type에 보안 정책을 설정해 row-level 보안을 달성하고, property security policy로 특정 프로퍼티의 가시성을 별도 통제해 column-level 보안을 달성한다. 둘을 합치면 **cell-level 보안**이 된다. 예컨대 VIP marking이 있어야 특정 승객 객체를 보고, PII marking이 있어야 이름·주소·전화번호 프로퍼티에 접근하는 식이다.
 - **쓰기 권한은 Action을 통해서만**: "Only allow edits via actions" 옵션을 켜면 해당 object type의 edit 권한이 action type을 통해서만 제어된다. DB에 직접 UPDATE하는 경로 자체를 막고 모든 변경을 검증된 Action 경로로 강제할 수 있다.
-
----
 
 ## 5. 소비 레이어 — OSDK와 AI 에이전트
 
@@ -132,8 +122,6 @@ OSv2는 단일 object type 기준 수백억(tens of billions) 객체 규모의 �
 - LLM에게 주는 tool이 곧 **Action Type**이므로, 에이전트가 할 수 있는 일이 권한 시스템 안에서 구조적으로 제한된다.
 - AIP Chatbot Studio로 만든 챗봇은 LLM + 온톨로지 + 문서 + 커스텀 tool로 구동되며, OSDK와 플랫폼 API를 통해 외부에도 배포 가능하다.
 - Palantir MCP는 외부 개발 도구나 AI 코딩 어시스턴트가 온톨로지를 검색하고, 안전하게 수정하고, 애플리케이션을 업데이트할 수 있게 한다.
-
----
 
 ## 6. 엔터테크 관점의 인사이트
 
@@ -158,8 +146,6 @@ experimental → active → deprecated status와 promoted 개념은, 팀이 커�
 ### LLM tool = 검증된 Action이라는 등식
 
 팬 대상 AI 챗봇, 아티스트 운영 자동화 에이전트를 만든다면 가장 중요한 교훈이 이것이다. **에이전트에게 raw DB 접근을 주지 말고, 파라미터 검증·권한 체크·사이드이펙트가 정의된 Action만 tool로 노출하라.** 에이전트의 행동 반경이 프롬프트가 아니라 권한 시스템으로 제한되면, 프롬프트 인젝션이 발생해도 피해 범위가 구조적으로 한정된다. 온톨로지 없이도 이 원칙은 오늘 당장 적용할 수 있다.
-
----
 
 ## 참고 자료
 
